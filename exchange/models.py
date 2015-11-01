@@ -19,7 +19,6 @@ class Brew(Base):
     brew_count = Column(Integer)
     brewer_id = Column(Integer, ForeignKey('users.id'))
     comments = relationship("Comment", backref="brew")
-    trades = relationship("Trade", backref="agent")
     owners = relationship("User", backref="owner")
     
 
@@ -70,7 +69,7 @@ class User(Base, UserMixin):
     superuser = Column(Boolean, default='False')
     active = Column(Boolean, default='True')
     city_state = Column(String(128))
-    zipcode = Column(Integer(5))
+    zipcode = Column(Integer)
     bio = Column(Text)
     picture = Column(LargeBinary)
     joindate = Column(DateTime, default=datetime.datetime.now)

@@ -48,7 +48,7 @@ def market_overview():
         if user.active == True:
 			user_count += 1
     
-    brews_count = session.query(Brew).count()
+    brew_count = session.query(Brew).count()
     
     trades = session.query(Trade)
     
@@ -71,7 +71,7 @@ def market_overview():
     return render_template("market.html",
                           user=user,
                           user_count=user_count,
-                          brews_count=brews_count,
+                          brew_count=brew_count,
                           trade_count=trade_count,
                           market_volume=market_volume,
                           market_value=market_value
@@ -327,6 +327,7 @@ def signup_post():
     session.commit()
     login_user(user)
     
+    """
     mail=Mail(app)
     message = Message(subject="A new user named " + user.name + " signed up with BCHBE",
                   body="The new user's email address is " + current_user.email,
@@ -341,8 +342,7 @@ def signup_post():
                   recipients=[current_user.email])
     
     mail.send(message)
+    """
     
     flash("Success! You're ready to start trading", "info")
     return redirect(url_for("market_overview"))
-
-"""

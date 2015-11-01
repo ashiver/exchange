@@ -4,20 +4,20 @@
 
 
 {% block content %}
-<h1>Bucks County Homebrew Exchange</h1>
+<div class="inner cover">
+  <h1 class="cover-heading">Bucks County Homebrew Exchange</h1>
+    <p class="lead">Trade homebrews. Share feedback. Track your brews' success on the market. Meet other homebrewers.</p>
+    <p class="lead">
+    <a href="/about" class="btn btn-lg btn-default">Learn More</a>
+    </p>
 
-<p>Trade homebrews. 
-Share feedback. 
-Track your brews' success on the market. 
-Meet other homebrewers.
-</p>
-
-<h2>
-Market Volume: {{ string(market_volume) }}
-Market Value: {{ string(market_value) }}
-Active Users: {{ string(user_count) }}
-Active Trades: {{ string(trade_count) }}
-Listed Brews: {{ string(brew_count) }}
+  <h2>
+  Market Volume: {{ market_volume }}<br>
+  Market Value: {{ market_value }}<br>
+  Active Users: {{ user_count }}<br>
+  Active Trades: {{ trade_count }}<br>
+  Listed Brews: {{ brew_count }}<br>
 </h2>
 
+</div>
 {% endblock %}
