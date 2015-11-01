@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<form role="form" method="POST">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="name" class="form-control" id="name" name="name" placeholder="Name as you want it displayed in comments" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Email address" required>
+    </div>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="username" class="form-control" id="username" name="username" placeholder="Username" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password (again)</label>
+        <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Repeat your password" required>
+    </div>
+    <button type="submit" class="btn btn-default">Signup</button>
+    <a href="{{ url_for('market') }}" class="btn btn-default" role="button">Cancel</a>
+</form>
+{% endblock %}

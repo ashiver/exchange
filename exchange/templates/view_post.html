@@ -1,0 +1,29 @@
+{% import "macros.html" as macros %}
+{% extends "base.html" %}
+
+{% block content %}
+
+{{ macros.render_post(post, user) }}
+
+<div class="container">
+    <div class="container">
+        <form role="form" method="POST">
+            <div class="form-group">
+                <textarea class="form-control" id="content" name="content" placeholder="Post a comment" rows="5" required></textarea>
+            </div>
+            <button type="submit" class"btn btn-default">Submit</button>
+        </form>
+    </div>
+    <br>
+    <h2>Comments for this post:</h2>
+    <br>
+    <div class ="container">
+        {% for comment in comments %}
+        {% if comment.post_id == post.id %}
+        {{ macros.render_comment(comment, user) }}
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

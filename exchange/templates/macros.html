@@ -1,0 +1,58 @@
+{% macro render_post(post, user) %}
+<div class="row">
+    <div class="col-md-2 text-right metadata">
+        <ul class="list-unstyled">
+            <li>
+                {{ post.datetime | dateformat("%m/%d/%y") }}
+            </li>
+            <li>
+                {{ post.comment_num }} Comments
+            </li>
+            {% if user.is_authenticated() %}
+            {% if post.author.id == user.id %}
+            <li> 
+                <a href="{{ url_for('posts') }}post/{{ post.id | slash }}edit">Edit</a>
+            </li>
+            <li> 
+                <a href="{{ url_for('posts') }}post/{{ post.id | slash }}delete">Delete</a>
+            </li>
+            {% endif %}
+            {% endif %}
+        </ul>
+    </div>
+    <div class="col-md-10">
+        <h1>
+            <a href="{{ url_for('posts') }}post/{{ post.id }}">{{ post.title }}</a>
+        </h1>
+        {{ post.content | safe }}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro render_comment(comment, user) %}
+<div class="row">
+    <div class="col-md-2 text-right metadata">
+    </div>
+    <div class="col-md-10">
+        <ul class="list-unstyled">
+            <li>
+                On {{ comment.datetime | dateformat("%m/%d/%y") }}
+            </li>
+            <li>
+                {{ comment.author.name }} said:
+            </li>
+            {% if user.is_authenticated() %}
+            {% if comment.author.id == user.id or user.id == 1 %}
+            <li> 
+                <a href="{{ url_for('posts') }}comment/{{ comment.id | slash }}edit">Edit Comment</a>
+            </li>
+            <li> 
+                <a href="{{ url_for('posts') }}comment/{{ comment.id | slash }}delete">Delete Comment</a>
+            </li>
+            {% endif %}
+            {% endif %}
+        </ul>
+        {{ comment.content | safe }}
+    </div>
+</div>
+{% endmacro %}

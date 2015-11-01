@@ -1,0 +1,24 @@
+div.metadata {
+    margin-top:20px;
+    font-size: 1.5em;
+}
+
+.comments {
+    max-width: 38em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+}
+
+.social > li{
+    display: inline-block;
+}
+
+.footer{
+    color: white;
+    background-color: #222222;
+    background-size: cover;
+    text-align: center;
+    margin-top: 3em;
+    padding: 4em;
+}

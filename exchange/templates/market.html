@@ -1,0 +1,23 @@
+{% import "macros.html" as macros %}
+{% extends "base.html" %}
+
+
+
+{% block content %}
+<h1>Bucks County Homebrew Exchange</h1>
+
+<p>Trade homebrews. 
+Share feedback. 
+Track your brews' success on the market. 
+Meet other homebrewers.
+</p>
+
+<h2>
+Market Volume: {{ string(market_volume) }}
+Market Value: {{ string(market_value) }}
+Active Users: {{ string(user_count) }}
+Active Trades: {{ string(trade_count) }}
+Listed Brews: {{ string(brew_count) }}
+</h2>
+
+{% endblock %}
