@@ -61,11 +61,11 @@ def market_overview():
     
     market_volume = 0
     for brew in brews:
-	    market_volume = market_volume + brew.brew_count
+        market_volume = market_volume + brew.brew_count
 	
-	market_value = 0
-	for brew in brews:
-		market_value = market_value + (brew.brew_count * brew.brew_value)
+    market_value = 0
+    for brew in brews:
+	    market_value = market_value + (brew.brew_count * brew.brew_value)
     
     
     return render_template("market.html",
