@@ -330,14 +330,14 @@ def signup_post():
     mail=Mail(app)
     message = Message(subject="A new user named " + user.name + " signed up with BCHBE",
                   body="The new user's email address is " + current_user.email,
-                  sender="bchbe@gmail.com",
-                  recipients=["bchbe@gmail.com"])
+                  sender="buckscountyhomebrewexchange@gmail.com",
+                  recipients=["buckscountyhomebrewexchange@gmail.com"])
     
     mail.send(message)
     
     message = Message(subject="You're Ready to Trade",
                   body="Thanks for signing up to trade on the Bucks County Homebrew Exchange, " + current_user.name + "! You're now ready to fill in your profile, list your homebrews on the market, and start trading!",
-                  sender="bchbe@gmail.com",
+                  sender="buckscountyhomebrewexchange@gmail.com",
                   recipients=[current_user.email])
     
     mail.send(message)
