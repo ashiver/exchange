@@ -28,13 +28,12 @@ html,
 body {
   height: 100%;
   background-color: #333;
-  background-image: url("https://static.pexels.com/photos/1862/summer-sunshine-alcohol-drink.jpg");
+  background-image: url("https://images.unsplash.com/photo-1415274878031-4078c05ea976?ixlib=rb-0.3.5&q=80&fm=jpg&s=e2fde77de8c12cb4a3998fffa5ada52e");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 1em;
 }
 body {
   color: #fff;
