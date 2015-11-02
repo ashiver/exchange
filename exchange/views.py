@@ -109,7 +109,7 @@ def user_profile_edit_get(username_view):
 @app.route("/users/<username_view>/edit", methods=["POST"])
 @login_required
 def user_profile_edit_post(username_view):
-    user = session.query(User).get(username_view)
+    user = session.query(User).filter_by(username=username_view).first()
     user.name = request.form["your name"],
     user.bio = content=mistune.markdown(request.form["a little something about yourself"])
     user.zipcode = request.form["your zipcode"]
