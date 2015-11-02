@@ -1,0 +1,17 @@
+{% import "macros.html" as macros %}
+{% extends "base.html" %}
+
+
+
+{% block content %}
+<div class="inner cover">
+  <h1 class="cover-heading">Market Statistics</h1>
+    <p class="lead">
+	  Market Volume: {{ market_volume }}<br>
+      Market Value: {{ market_value }}<br>
+      Active Users: {{ user_count }}<br>
+      Active Trades: {{ trade_count }}<br>
+      Listed Brews: {{ brew_count }}<br>
+    </p>
+</div>
+{% endblock %}

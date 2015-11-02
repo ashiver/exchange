@@ -1,0 +1,17 @@
+{% import "macros.html" as macros %}
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+  <h2>Profile for {{ username }} </h2>
+  <img src="{{ picture }}" alt="Profile Picture" height="128" width="128"><br>
+  <p>
+    Name: {{ name }}<br>
+    Location: {{ city_state }}<br>
+    Bio: {{ bio }}<br>
+  </p>
+  
+</div>
+
+{% endblock %}

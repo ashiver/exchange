@@ -12,32 +12,14 @@ from .models import User, Brew, Trade, Proposal, Holding, Comment
 
 @app.route("/")
 def market_overview():
-    """ Zero-indexed page
-    page_index = page - 1
+	username = current_user.username
     
-    count = session.query(Post).count()
-    
-    start = page_index * paginate_by
-    end = start + paginate_by
-    
-    total_pages = (count -1) / paginate_by + 1
-    has_next = page_index < total_pages - 1
-    has_prev = page_index > 0
-    
-    posts = session.query(Post)
-    posts = posts.order_by(Post.datetime.desc())
-    posts = posts[start:end]
-    
-    comments = session.query(Comment)
-    comments = comments.order_by(Comment.datetime.asc())
-    comments = comments[start:end]
-    
-    for post in posts:
-        post.comment_num = 0
-        for comment in comments:
-            if comment.post_id == post.id:
-                post.comment_num += 1 
-    """
+    return render_template("market.html"
+                          username=username
+                          )
+
+@app.route("/about")
+def about():
         
     user = current_user
     
@@ -68,7 +50,7 @@ def market_overview():
 	    market_value = market_value + (brew.brew_count * brew.brew_value)
     
     
-    return render_template("market.html",
+    return render_template("about.html",
                           user=user,
                           user_count=user_count,
                           brew_count=brew_count,
@@ -78,83 +60,70 @@ def market_overview():
                           )
 
 
-"""
 
-@app.route("/post/add", methods=["GET"])
-@login_required
-def add_post_get():
-    if current_user.id != 1:
-        flash("Sorry, you aren't authorized to add posts.", "danger")
-        return redirect(url_for("posts"))
-    else:
-        return render_template("add_post.html")
-
-
-
-
-@app.route("/post/add", methods=["POST"])
-@login_required
-def add_post_post():
-    if current_user.id != 1:
-        flash("Sorry, you aren't authorized to add posts.", "danger")
-        return redirect(url_for("posts"))
-    else:
-        post = Post(
-            title=request.form["title"],
-            content=mistune.markdown(request.form["content"]),
-            author=current_user
-        )
-        session.add(post)
-        session.commit()
-        return redirect(url_for("posts"))
-
-
-
-
-
-@app.route("/post/<id>", methods=["GET"])
-def post_id_get(id):
-    post = session.query(Post).get(id)
-    user = current_user
-    
-    comments = session.query(Comment)
-    comments = comments.order_by(Comment.datetime.asc())
-    
-    post.comment_num = 0
-    
-    for comment in comments:
-        if comment.post_id == post.id:
-            post.comment_num += 1
-    
-    return render_template("view_post.html",
-                          post=post,
-                          user=user,
-                          comments=comments
+@app.route("/users/<username_view>", methods=["GET"])
+def user_profile_get(username_view):
+	user = session.query(User).get(username_view)
+	username = user.username
+	name = user.name
+	picture = user.picture
+	bio = user.bio
+	city_state = user.city_state
+   
+    return render_template("view_profile.html"
+                          city_state=city_state
+                          zipcode=zipcode
+                          bio=bio
+                          picture=picture
+                          name=name
+                          username=username
                           )
 
 
-@app.route("/post/<id>", methods=["POST"])
+@app.route("/users/<username_view>/edit", methods=["GET"])
 @login_required
-def post_id_postcomment(id):
-    comment = Comment(
-        post=session.query(Post).get(id),
-        content=mistune.markdown(request.form["content"]),
-        author=current_user
-    )
-    session.add(comment)
+def user_profile_edit_get(username_view):
+	user = session.query(User).get(username_view)
+	username = user.username
+	name = user.name
+	picture = user.picture
+	bio = user.bio
+	zipcode = user.zipcode
+	city_state = user.city_state
+	
+	
+	if current_user.username == user.username:
+        return render_template("edit_profile.html",
+                          city_state=city_state
+                          zipcode=zipcode
+                          bio=bio
+                          picture=picture
+                          name=name
+                          username=username
+                          )
+    else:
+        flash("Cannot modify other users' profiles", "danger")
+        return redirect(url_for("market_overview"))
+   
+    return render_template("view_profile.html",
+                          )
+                          
+                          
+
+@app.route("/users/<username_view>/edit", methods=["POST"])
+@login_required
+def user_profile_edit_post(username_view):
+    user = session.query(User).get(username_view)
+    user.name = request.form["your name"],
+    user.bio = content=mistune.markdown(request.form["a little something about yourself"])
+    user.zipcode = request.form["your zipcode"]
+    user.city_state = request.form[" your city, state"]
+    user.picture = request.form["a url for your profile image"]
     session.commit()
-    
-    mail=Mail(app)
-    message = Message(current_user.name + " posted a comment on AnthonyDevBlog",
-                  sender="anthony.lee.shiver@gmail.com",
-                  recipients=["anthony.lee.shiver@gmail.com"])
-    
-    mail.send(message)
-    
-    flash("Your comment posted successfully", "info")
-    return redirect(url_for("posts") + "post/" + str(id))
+    flash("Your profile updated successfully", "info")
+    return redirect(url_for("market_overview") + "users/" + username_view)
 
-
+"""
 
 @app.route("/post/<id>/edit", methods=["GET"])
 @login_required

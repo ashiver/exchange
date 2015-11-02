@@ -71,7 +71,7 @@ class User(Base, UserMixin):
     city_state = Column(String(128))
     zipcode = Column(Integer)
     bio = Column(Text)
-    picture = Column(LargeBinary)
+    picture = Column(String, default="http://icons.iconarchive.com/icons/icons8/windows-8/128/Food-Beer-icon.png")
     joindate = Column(DateTime, default=datetime.datetime.now)
     products = relationship("Brew", backref="brewer")
     trades = relationship("Trade", backref="agent")
