@@ -1,6 +1,6 @@
 import os
 class DevelopmentConfig(object):
-    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:PASSWORD@localhost/market'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:em1056em@localhost/market'
     SECRET_KEY = 'supersecretkeylol'
     DEBUG = True
     

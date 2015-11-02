@@ -12,10 +12,8 @@ from .models import User, Brew, Trade, Proposal, Holding, Comment
 
 @app.route("/")
 def market_overview():
-	username = current_user.username
     
-    return render_template("market.html"
-                          username=username
+    return render_template("market.html",
                           )
 
 @app.route("/about")
@@ -47,7 +45,7 @@ def about():
 	
     market_value = 0
     for brew in brews:
-	    market_value = market_value + (brew.brew_count * brew.brew_value)
+        market_value = market_value + (brew.brew_count * brew.brew_value)
     
     
     return render_template("about.html",
@@ -63,19 +61,18 @@ def about():
 
 @app.route("/users/<username_view>", methods=["GET"])
 def user_profile_get(username_view):
-	user = session.query(User).get(username_view)
-	username = user.username
-	name = user.name
-	picture = user.picture
-	bio = user.bio
-	city_state = user.city_state
+    user = session.query(User).filter_by(username=username_view).first()
+    username = username_view
+    name = user.name
+    picture = user.picture
+    bio = user.bio
+    city_state = user.city_state
    
-    return render_template("view_profile.html"
-                          city_state=city_state
-                          zipcode=zipcode
-                          bio=bio
-                          picture=picture
-                          name=name
+    return render_template("view_profile.html",
+                          city_state=city_state,
+                          bio=bio,
+                          picture=picture,
+                          name=name,
                           username=username
                           )
 
@@ -83,24 +80,23 @@ def user_profile_get(username_view):
 @app.route("/users/<username_view>/edit", methods=["GET"])
 @login_required
 def user_profile_edit_get(username_view):
-	user = session.query(User).get(username_view)
-	username = user.username
-	name = user.name
-	picture = user.picture
-	bio = user.bio
-	zipcode = user.zipcode
-	city_state = user.city_state
+    user = session.query(User).filter_by(username=username_view).first()
+    name = user.name
+    picture = user.picture
+    bio = user.bio
+    zipcode = user.zipcode
+    city_state = user.city_state
 	
 	
-	if current_user.username == user.username:
+    if current_user.username == user.username:
         return render_template("edit_profile.html",
-                          city_state=city_state
-                          zipcode=zipcode
-                          bio=bio
-                          picture=picture
-                          name=name
-                          username=username
-                          )
+                              city_state=city_state,
+                              zipcode=zipcode,
+                              bio=bio,
+                              picture=picture,
+                              name=name,
+                              username=username
+                              )
     else:
         flash("Cannot modify other users' profiles", "danger")
         return redirect(url_for("market_overview"))
